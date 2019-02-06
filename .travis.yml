@@ -1,0 +1,18 @@
+language: java
+jdk:
+- oraclejdk8
+
+before_install: chmod +x gradlew
+install: "./gradlew setupCIWorkspace -s"
+script: "./gradlew build -s"
+sudo: false
+
+deploy:
+  provider: releases
+  api_key:
+    secure: PKQd/QAESs1uk5xeGo8Doi8EZ00j9Pi8JlnU2qzd8aFuqOgHEogZWvpNrK3bxLxs6BptuVkbhQaT0C/awcSNzV/Wrz+7BXm3i+k+JiFYWqTSpWnMg/I+HYFKUt4RMtQxIXfrbluxF3AQoQb5devTa04VTyReDC9aXPBseHzzWEW3LbqwzULKP2AwGr1qYmrodn6/wOA7W0By96N4Qb5ZIpGLBLxallMRR3JZ16/Vn/6nAWnz6ckIV0U7S0G8PMiQjslphJKjGzquegnp7l1sxhtixpMYqMEmytg5kWuLlkC1MSg63l3Zvc6ZdJFg5f55LbZ3YEevAhsVS7mxtvufv6ym54WOljZYwam7tbmw/RKJrrsGS+c1FcTgjXQbx1HR03NTQGU1Hj9n/JQQXWLaztTA01AVUrTqfhODP3tMMxKEe3v2HtDNtZBP3GM4ic+qe0xdLw9izgMIJUH/OCyGHg6HD0o1Sjg6fBa8j2eKJdWFNKbxn7gDx7YpJWdYxocAQW7ogToXpoWWn/qVHj/jgOTTkiP11jE2TkfaZ29CZqUB5uzkedwPYx4SyTScqNHD0UepmNsuYatZ7YTkz4lL/16zSSgpZJIwgZ3E34P13odwS9GfQ9+v8iJL8EOS85JWBc18g09JaZVm1PmbnxYQPSgtGQ91p1gC0jVUx0BZhoQ=
+  file: build/libs/colouredchat*.jar
+  on:
+    repo: Pxl-8/ColouredChat
+    branch: master
+    tags: true
