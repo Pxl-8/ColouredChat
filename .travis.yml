@@ -15,5 +15,4 @@ deploy:
   file: build/libs/*.jar
   on:
     repo: Pxl-8/ColouredChat
-    branch: master
     tags: true
