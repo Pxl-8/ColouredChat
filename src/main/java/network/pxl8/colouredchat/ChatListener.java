@@ -32,13 +32,13 @@ public class ChatListener implements EventListener{
     }
 
     @SubscribeEvent
-    public void test(PlayerEvent.PlayerLoggedInEvent event) {
+    public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         LibDataStorage data = LibDataStorage.get(event.player.world);
         data.addPlayerColour(event.player, randomColour());
         data.markDirty();
     }
     @SubscribeEvent
-    public void test(PlayerEvent.PlayerLoggedOutEvent event) {
+    public void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
         LibDataStorage data = LibDataStorage.get(event.player.world);
         data.removePlayerColour(event.player);
         data.markDirty();
