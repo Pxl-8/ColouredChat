@@ -5,25 +5,23 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import network.pxl8.colouredchat.lib.LibMisc;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import network.pxl8.colouredchat.chat.ChatCommand;
+import network.pxl8.colouredchat.lib.LibMeta;
 import network.pxl8.colouredchat.proxy.Proxy;
-import org.apache.logging.log4j.Logger;
 
 
-@Mod(modid = LibMisc.MOD_ID, version = LibMisc.VERSION, acceptableRemoteVersions = "*")
+@Mod(modid = LibMeta.MOD_ID, version = LibMeta.VERSION, acceptableRemoteVersions = "*")
 public class ColouredChat {
-    @SidedProxy(clientSide = "network.pxl8.colouredchat.proxy.ClientProxy", serverSide = "network.pxl8.colouredchat.proxy.CommonProxy", modId = LibMisc.MOD_ID)
+    @SidedProxy(clientSide = LibMeta.CLIENT_PROXY, serverSide = LibMeta.SERVER_PROXY, modId = LibMeta.MOD_ID)
     public static Proxy proxy;
 
     @Mod.Instance
     public static ColouredChat instance;
 
-    public static Logger log;
-
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit();
-        log = event.getModLog();
     }
 
     public void init(FMLInitializationEvent event) {
@@ -33,5 +31,10 @@ public class ColouredChat {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit();
+    }
+
+    @Mod.EventHandler
+    public void serverLoad(FMLServerStartingEvent event) {
+        event.registerServerCommand(new ChatCommand());
     }
 }

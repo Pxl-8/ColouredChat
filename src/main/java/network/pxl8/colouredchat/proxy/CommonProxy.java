@@ -1,7 +1,7 @@
 package network.pxl8.colouredchat.proxy;
 
 import net.minecraftforge.common.MinecraftForge;
-import network.pxl8.colouredchat.ChatListener;
+import network.pxl8.colouredchat.chat.ChatListener;
 
 public class CommonProxy implements Proxy {
     @Override
@@ -11,6 +11,7 @@ public class CommonProxy implements Proxy {
 
     @Override
     public void init() {
+
     }
 
     @Override
