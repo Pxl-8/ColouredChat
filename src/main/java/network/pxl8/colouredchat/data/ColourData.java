@@ -3,6 +3,7 @@ package network.pxl8.colouredchat.data;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldSavedData;
 import network.pxl8.colouredchat.lib.LibMeta;
 
@@ -11,19 +12,23 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class colourData extends WorldSavedData{
-    private static final String IDENT = LibMeta.MOD_ID + "_playerdataDef";
+public class ColourData extends WorldSavedData{
+    private static final String IDENT = LibMeta.MOD_ID + "_playerdata";
 
-    public colourData() {
+    public ColourData() {
         super(IDENT);
     }
+    public ColourData(String s) {
+        super(s);
+    }
 
-    public static colourData get(World world) {
-        colourData instance = (colourData) world.getMapStorage().getOrLoadData(colourData.class, IDENT);
+    public static ColourData get(World world) {
+        MapStorage storage = world.getMapStorage();
+        ColourData instance = (ColourData) storage.getOrLoadData(ColourData.class, IDENT);
 
         if (instance == null) {
-            instance = new colourData();
-            world.getMapStorage().setData(IDENT, instance);
+            instance = new ColourData();
+            storage.setData(IDENT, instance);
         }
         return instance;
     }

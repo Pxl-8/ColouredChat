@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import network.pxl8.colouredchat.config.Configuration;
-import network.pxl8.colouredchat.data.colourData;
+import network.pxl8.colouredchat.data.ColourData;
 import network.pxl8.colouredchat.lib.LibColour;
 import network.pxl8.colouredchat.lib.LibMeta;
 
@@ -88,7 +88,7 @@ public class ChatCommand extends CommandBase{
                 default : throw new WrongUsageException("Not a valid colour option");
             }
             if (LibColour.getColourFromName(colour) == null) throw new WrongUsageException("Colour returned null");
-            colourData data = colourData.get(sender.getEntityWorld());
+            ColourData data = ColourData.get(sender.getEntityWorld());
 
             if (sender instanceof EntityPlayer) {
                 data.addDefaultColour((EntityPlayerMP) sender, LibColour.getColourFromName(colour));
@@ -98,7 +98,7 @@ public class ChatCommand extends CommandBase{
             sender.sendMessage(new TextComponentString(TextFormatting.GRAY + "Set default name colour to " + LibColour.getColourFromName(colour) + colour));
         } else if (cmd.equals("clear")) {
             if (!Configuration.command_config.allowCustomColours) throw new CommandException("Command is disabled");
-            colourData data = colourData.get(sender.getEntityWorld());
+            ColourData data = ColourData.get(sender.getEntityWorld());
 
             if (sender instanceof EntityPlayer) {
                 data.removeDefaultColour((EntityPlayerMP) sender);

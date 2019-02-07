@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import network.pxl8.colouredchat.config.Configuration;
-import network.pxl8.colouredchat.data.colourData;
+import network.pxl8.colouredchat.data.ColourData;
 import network.pxl8.colouredchat.lib.LibColour;
 
 import java.util.EventListener;
@@ -15,20 +15,20 @@ import java.util.EventListener;
 public class ChatListener implements EventListener{
     @SubscribeEvent
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        colourData data = colourData.get(event.player.world);
+        ColourData data = ColourData.get(event.player.world);
         data.addRandomColour(event.player, LibColour.randomColour());
         data.markDirty();
     }
     @SubscribeEvent
     public void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
-        colourData data = colourData.get(event.player.world);
+        ColourData data = ColourData.get(event.player.world);
         data.removeRandomColour(event.player);
         data.markDirty();
     }
 
     @SubscribeEvent
     public void onServerMsg( ServerChatEvent event) {
-        colourData data = colourData.get(event.getPlayer().world);
+        ColourData data = ColourData.get(event.getPlayer().world);
         event.setCanceled(true);
 
         String delimL = Configuration.chat_config.nameDelimiterL;
