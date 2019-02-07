@@ -5,7 +5,13 @@ Makes chat more readable when multiple players are typing
 
 ## Releases
 #### 1.12.2-0.1.0-beta release
-Initial release, random coloured names (no configs yet)
+- Initial release, random coloured names (no configs yet)
+#### 1.12.2-0.2.0-beta release
+Added configuration file and commands
+- Config for name delimiters (<username>)
+- Config to enable/disable list of colours to use for random assignment
+- Config to enable/disable custom name colouring command
+- Command to allow players to choose a default name colour 
 
 ## Todo:
 - Command for letting players set their own colours
