@@ -14,4 +14,4 @@ Added configuration file and commands
 - Command to allow players to choose a default name colour 
 
 ## Todo:
-- Command for letting players set their own colours
+- ~~Command for letting players set their own colours~~
