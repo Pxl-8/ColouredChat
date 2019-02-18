@@ -31,19 +31,19 @@ public class LibColour {
         return getColours().get(rand.nextInt(getColours().size())).toString();
     }
 
-    public static String getColourFromName(String colour) {
+    public static TextFormatting getColourFromName(String colour) {
         switch (colour) {
-            case("DARK_GREEN"): return getColours().get(0).toString();
-            case("DARK_AQUA"): return getColours().get(1).toString();
-            case("DARK_RED"): return getColours().get(2).toString();
-            case("DARK_PURPLE"): return getColours().get(3).toString();
-            case("GOLD"): return getColours().get(4).toString();
-            case("BLUE"): return getColours().get(5).toString();
-            case("GREEN"): return getColours().get(6).toString();
-            case("AQUA"): return getColours().get(7).toString();
-            case("RED"): return getColours().get(8).toString();
-            case("LIGHT_PURPLE"): return getColours().get(9).toString();
-            case("YELLOW"): return getColours().get(10).toString();
+            case("DARK_GREEN"): return TextFormatting.DARK_GREEN;
+            case("DARK_AQUA"): return TextFormatting.DARK_AQUA;
+            case("DARK_RED"): return TextFormatting.DARK_RED;
+            case("DARK_PURPLE"): return TextFormatting.DARK_PURPLE;
+            case("GOLD"): return TextFormatting.GOLD;
+            case("BLUE"): return TextFormatting.BLUE;
+            case("GREEN"): return TextFormatting.GREEN;
+            case("AQUA"): return TextFormatting.AQUA;
+            case("RED"): return TextFormatting.RED;
+            case("LIGHT_PURPLE"): return TextFormatting.LIGHT_PURPLE;
+            case("YELLOW"): return TextFormatting.YELLOW;
         }
         return null;
     }

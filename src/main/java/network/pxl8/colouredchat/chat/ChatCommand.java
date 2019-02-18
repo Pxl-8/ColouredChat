@@ -91,7 +91,7 @@ public class ChatCommand extends CommandBase{
             ColourData data = ColourData.get(sender.getEntityWorld());
 
             if (sender instanceof EntityPlayer) {
-                data.addDefaultColour((EntityPlayerMP) sender, LibColour.getColourFromName(colour));
+                data.addDefaultColour((EntityPlayerMP) sender, LibColour.getColourFromName(colour).toString());
             }
 
             data.markDirty();
