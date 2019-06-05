@@ -11,7 +11,8 @@ Added configuration file and commands
 - Config for name delimiters (\<username>)
 - Config to enable/disable list of colours to use for random assignment
 - Config to enable/disable custom name colouring command
-- Command to allow players to choose a default name colour 
-
+- Command to allow players to choose a default name colour
+#### 1.12.2-0.3.0-beta release
+- Added quick compatibility with discordchat https://minecraft.curseforge.com/projects/discordchat
 ## Todo:
 - ~~Command for letting players set their own colours~~
