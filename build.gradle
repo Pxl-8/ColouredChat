@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.12.2-0.3.0-beta"
+version = "1.12.2-0.3.1"
 group = "network.pxl8.colouredchat" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "colouredchat"
 
@@ -41,7 +41,7 @@ repositories {
 }
 
 dependencies {
-    compile "discordchat:DiscordChat:1.12.2:2.3.0"
+    compileOnly "discordchat:DiscordChat:1.12.2:2.3.0"
 }
 
 processResources {

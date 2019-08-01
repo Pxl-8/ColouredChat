@@ -1,6 +1,7 @@
 package network.pxl8.colouredchat.lib;
 
 import net.minecraft.util.text.TextFormatting;
+import network.pxl8.colouredchat.ColouredChat;
 import network.pxl8.colouredchat.config.Configuration;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 public class LibColour {
-    private static List getColours() {
+    public static List getColours() {
         List<TextFormatting> colours = new ArrayList<>();
 
         if (Configuration.colour_config.DARK_GREEN){colours.add(TextFormatting.DARK_GREEN);}
@@ -28,7 +29,7 @@ public class LibColour {
 
     public static String randomColour() {
         Random rand = new Random();
-        return getColours().get(rand.nextInt(getColours().size())).toString();
+        return ColouredChat.COLOURS.get(rand.nextInt(ColouredChat.COLOURS.size())).toString();
     }
 
     public static TextFormatting getColourFromName(String colour) {
