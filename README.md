@@ -1,8 +1,8 @@
 # ColouredChat
-![GitHub](https://img.shields.io/github/license/Pxl-8/ColouredChat?style=flat-square&logo=github&link=https://github.com/Pxl-8/ColouredChat/blob/1.12/LICENSE.md)
-![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Pxl-8/ColouredChat?label=latest&style=flat-square&logo=github&link=https://github.com/Pxl-8/ColouredChat/releases)
-![Travis (.com)](https://img.shields.io/travis/com/Pxl-8/ColouredChat?style=flat-square&logo=travis&link=https://travis-ci.com/Pxl-8/ColouredChat)
-![Discord](https://img.shields.io/discord/163375257162350592?color=7289da&label=discord&logo=discord&link=https://discord.uberifix.ca)
+[![GitHub](https://img.shields.io/github/license/Pxl-8/ColouredChat?style=flat-square&logo=github&link=https://github.com/Pxl-8/ColouredChat/blob/1.12/LICENSE.md)](https://github.com/Pxl-8/ColouredChat/blob/1.12/LICENSE.md)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Pxl-8/ColouredChat?label=latest&style=flat-square&logo=github&link=https://github.com/Pxl-8/ColouredChat/releases)](https://github.com/Pxl-8/ColouredChat/releases)
+[![Travis (.com)](https://img.shields.io/travis/com/Pxl-8/ColouredChat?style=flat-square&logo=travis&link=https://travis-ci.com/Pxl-8/ColouredChat)](https://travis-ci.com/Pxl-8/ColouredChat)
+[![Discord](https://img.shields.io/discord/163375257162350592?color=7289da&label=discord&logo=discord&link=https://discord.uberifix.ca)](https://discord.uberifix.ca)
 
 A simple mod that randomly generates a name colour when a player joins the server
 
