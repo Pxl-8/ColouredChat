@@ -1,4 +1,9 @@
 # ColouredChat
+![GitHub](https://img.shields.io/github/license/Pxl-8/ColouredChat?style=flat-square)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Pxl-8/ColouredChat?label=latest&style=flat-square)
+![Travis (.com)](https://img.shields.io/travis/com/Pxl-8/ColouredChat?style=flat-square)
+
+
 A simple mod that randomly generates a name colour when a player joins the server
 
 Makes chat more readable when multiple players are typing
