@@ -2,7 +2,7 @@
 [![GitHub](https://img.shields.io/github/license/Pxl-8/ColouredChat?style=flat-square&logo=github&link=https://github.com/Pxl-8/ColouredChat/blob/1.12/LICENSE.md)](https://github.com/Pxl-8/ColouredChat/blob/1.12/LICENSE.md)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Pxl-8/ColouredChat?label=latest&style=flat-square&logo=github&link=https://github.com/Pxl-8/ColouredChat/releases)](https://github.com/Pxl-8/ColouredChat/releases)
 [![Travis (.com)](https://img.shields.io/travis/com/Pxl-8/ColouredChat?style=flat-square&logo=travis&link=https://travis-ci.com/Pxl-8/ColouredChat)](https://travis-ci.com/Pxl-8/ColouredChat)
-[![Discord](https://img.shields.io/discord/163375257162350592?color=7289da&label=discord&logo=discord&link=https://discord.uberifix.ca)](https://discord.uberifix.ca)
+[![Discord](https://img.shields.io/discord/163375257162350592?style=flat-square&color=7289da&label=discord&logo=discord&link=https://discord.uberifix.ca)](https://discord.uberifix.ca)
 [![Downloads](https://img.shields.io/badge/dynamic/json?color=6441a4&label=curse-downloads&query=%24.downloads.total&url=https%3A%2F%2Fapi.cfwidget.com%2Fminecraft%2Fmc-mods%2Fcolouredchat&style=flat-square)](https://www.curseforge.com/minecraft/mc-mods/colouredchat)
 
 A simple mod that randomly generates a name colour when a player joins the server
