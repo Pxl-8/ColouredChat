@@ -20,5 +20,19 @@ Added configuration file and commands
 - Command to allow players to choose a default name colour
 #### 1.12.2-0.3.0-beta release
 - Added quick compatibility with discordchat https://minecraft.curseforge.com/projects/discordchat
+#### 1.14.4-0.4.0 release
+Major Rewrites for Forge 1.14
+- Now using capabilities over WorldSavedData 
+- Commands now use Mojangs new Brigadier system
+- Chat properly reads and uses text components, you can now click a username for /tell \<name>
+- Configs now use new toml format
+
+Brand new quasi-random colour assignment system implemented
+- Players are now randomly assigned colours from a reverse-bag system
+- This system ensures all colours are assigned before using any repeated colours
+- The system also attempts to maintain an equal distribution of all colours when repeated colours are needed
+- This system is independent of any randomly assigned or set colours (using the commands)
+- If you only want to use this system you can simply disable the random/set commands from the config
+
 ## Todo:
 - ~~Command for letting players set their own colours~~
