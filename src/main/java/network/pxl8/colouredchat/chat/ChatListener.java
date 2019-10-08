@@ -1,58 +1,59 @@
 package network.pxl8.colouredchat.chat;
 
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.common.ForgeHooks;
+import com.google.gson.JsonObject;
+import net.minecraft.util.text.*;
 import net.minecraftforge.event.ServerChatEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.shadowfacts.discordchat.one_twelve_two.OneTwelveTwoMod;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import network.pxl8.colouredchat.ColouredChat;
 import network.pxl8.colouredchat.config.Configuration;
-import network.pxl8.colouredchat.data.ColourData;
 import network.pxl8.colouredchat.lib.LibColour;
 
-import java.util.EventListener;
+import java.util.Iterator;
 
-public class ChatListener implements EventListener{
-    @SubscribeEvent
-    public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        ColourData data = ColourData.get(event.player.world);
-        data.addRandomColour(event.player, LibColour.randomColour());
-        data.markDirty();
-    }
-    @SubscribeEvent
-    public void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
-        ColourData data = ColourData.get(event.player.world);
-        data.removeRandomColour(event.player);
-        data.markDirty();
-    }
+@Mod.EventBusSubscriber
+public class ChatListener {
 
     @SubscribeEvent
-    public void onServerMsg(ServerChatEvent event) {
-        ColourData data = ColourData.get(event.getPlayer().world);
-        event.setCanceled(true);
-
-        String delimL = Configuration.chat_config.nameDelimiterL;
-        String prefix = data.getRandomColour(event.getPlayer());
-        if (data.getDefaultColour(event.getPlayer()) != null) {
-           prefix = data.getDefaultColour(event.getPlayer());
-        }
-        String player = event.getPlayer().getDisplayNameString();
-        String suffix = TextFormatting.RESET.toString();
-        String delimR = Configuration.chat_config.nameDelimiterR;
-
-        String orgmsg = event.getMessage();
-        String newmsg = delimL + prefix + player + suffix + delimR + orgmsg;
-
-        FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendMessage(ForgeHooks.newChatWithLinks(newmsg));
-
-        //DiscordChat Compat
-        if (Loader.isModLoaded("discordchat")) {
-            String discordmsg = OneTwelveTwoMod.discordChat.filterMCMessage(orgmsg);
-            if (discordmsg != null) {
-                OneTwelveTwoMod.discordChat.sendMessage(OneTwelveTwoMod.discordChat.getFormatter().fromMC(event.getPlayer().getName(), discordmsg));
+    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        ColouredChat.getCap(event.getPlayer()).ifPresent(colourData -> {
+            if (Configuration.USE_QUASI_RANDOM_ASSIGNMENT.get()) {
+                TextFormatting colour = LibColour.getRandomColourFromMap(ColouredChat.COLOUR_MAP);
+                colourData.setRandomColour(colour);
+                colourData.setQuasiRandomColour(colour);
+            } else {
+                colourData.setRandomColour(LibColour.randomFormattedColour());
             }
+        });
+    }
+    @SubscribeEvent
+    public static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
+        if (Configuration.USE_QUASI_RANDOM_ASSIGNMENT.get()) {
+            ColouredChat.getCap(event.getPlayer()).ifPresent(colourData -> LibColour.removeColourFromMap(ColouredChat.COLOUR_MAP, colourData.getQuasiRandomColour()));
         }
+    }
+
+    @SubscribeEvent
+    public static void onServerMsg(ServerChatEvent event) {
+        JsonObject textComponentJSON = TextComponent.Serializer.toJsonTree(event.getComponent()).getAsJsonObject();
+        ITextComponent msgTextComponent = ITextComponent.Serializer.fromJson(textComponentJSON.get("with"));
+        Iterator<ITextComponent> textComponentSib = msgTextComponent.getSiblings().iterator();
+
+        ITextComponent newTextComponent = new StringTextComponent(Configuration.DELIMITER_LEFT.get());
+        ColouredChat.getCap(event.getPlayer()).ifPresent(colourData -> {
+            if (colourData.getUsePlayerColour()) {
+                newTextComponent.appendSibling(textComponentSib.next().setStyle(msgTextComponent.getStyle()).applyTextStyle(colourData.getPlayerColour()));
+            } else {
+                newTextComponent.appendSibling(textComponentSib.next().setStyle(msgTextComponent.getStyle()).applyTextStyle(colourData.getRandomColour()));
+            }
+        });
+        newTextComponent.appendText(Configuration.DELIMITER_RIGHT.get());
+
+        while (textComponentSib.hasNext()) {
+            newTextComponent.appendSibling(textComponentSib.next());
+        }
+
+        event.setComponent(newTextComponent);
     }
 }

@@ -4,32 +4,25 @@ import net.minecraft.util.text.TextFormatting;
 import network.pxl8.colouredchat.ColouredChat;
 import network.pxl8.colouredchat.config.Configuration;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class LibColour {
-    public static List getColours() {
+    public static List<TextFormatting> getColours() {
         List<TextFormatting> colours = new ArrayList<>();
 
-        if (Configuration.colour_config.DARK_GREEN){colours.add(TextFormatting.DARK_GREEN);}
-        if (Configuration.colour_config.DARK_AQUA){colours.add(TextFormatting.DARK_AQUA);}
-        if (Configuration.colour_config.DARK_RED){colours.add(TextFormatting.DARK_RED);}
-        if (Configuration.colour_config.DARK_PURPLE){colours.add(TextFormatting.DARK_PURPLE);}
-        if (Configuration.colour_config.GOLD){colours.add(TextFormatting.GOLD);}
-        if (Configuration.colour_config.BLUE){colours.add(TextFormatting.BLUE);}
-        if (Configuration.colour_config.GREEN){colours.add(TextFormatting.GREEN);}
-        if (Configuration.colour_config.AQUA){colours.add(TextFormatting.AQUA);}
-        if (Configuration.colour_config.RED){colours.add(TextFormatting.RED);}
-        if (Configuration.colour_config.LIGHT_PURPLE){colours.add(TextFormatting.LIGHT_PURPLE);}
-        if (Configuration.colour_config.YELLOW){colours.add(TextFormatting.YELLOW);}
+        if (Configuration.DARK_GREEN.get()){colours.add(TextFormatting.DARK_GREEN);}
+        if (Configuration.DARK_AQUA.get()){colours.add(TextFormatting.DARK_AQUA);}
+        if (Configuration.DARK_RED.get()){colours.add(TextFormatting.DARK_RED);}
+        if (Configuration.DARK_PURPLE.get()){colours.add(TextFormatting.DARK_PURPLE);}
+        if (Configuration.GOLD.get()){colours.add(TextFormatting.GOLD);}
+        if (Configuration.BLUE.get()){colours.add(TextFormatting.BLUE);}
+        if (Configuration.GREEN.get()){colours.add(TextFormatting.GREEN);}
+        if (Configuration.AQUA.get()){colours.add(TextFormatting.AQUA);}
+        if (Configuration.RED.get()){colours.add(TextFormatting.RED);}
+        if (Configuration.LIGHT_PURPLE.get()){colours.add(TextFormatting.LIGHT_PURPLE);}
+        if (Configuration.YELLOW.get()){colours.add(TextFormatting.YELLOW);}
 
         return colours;
-    }
-
-    public static String randomColour() {
-        Random rand = new Random();
-        return ColouredChat.COLOURS.get(rand.nextInt(ColouredChat.COLOURS.size())).toString();
     }
 
     public static TextFormatting getColourFromName(String colour) {
@@ -47,5 +40,35 @@ public class LibColour {
             case("YELLOW"): return TextFormatting.YELLOW;
         }
         return null;
+    }
+
+    public static TextFormatting randomFormattedColour() {
+        Random rand = new Random();
+        return ColouredChat.COLOURS.get(rand.nextInt((ColouredChat.COLOURS.size())));
+    }
+
+    public static TextFormatting getRandomColourFromMap(HashMap<TextFormatting, Integer> map) {
+        List<TextFormatting> leastUsedColours = new ArrayList<>();
+
+        Iterator<Integer> mapValues = map.values().iterator();
+        int min = mapValues.next();
+        while (mapValues.hasNext()) { min = Math.min(min, mapValues.next()); }
+
+        for (TextFormatting colour : map.keySet()) {
+            if (map.get(colour).equals(min)) {
+                leastUsedColours.add(colour);
+            }
+        }
+        leastUsedColours.remove(ColouredChat.LAST_COLOUR);
+
+        Random rand = new Random();
+        TextFormatting colour = leastUsedColours.get(rand.nextInt(leastUsedColours.size()));
+        map.put(colour, map.get(colour) + 1);
+        ColouredChat.LAST_COLOUR = colour;
+        return colour;
+    }
+
+    public static void removeColourFromMap(HashMap<TextFormatting, Integer> map, TextFormatting colour) {
+        if (map.get(colour) > 0) { map.put(colour, map.get(colour) - 1); }
     }
 }
