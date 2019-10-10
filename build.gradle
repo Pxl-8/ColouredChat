@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = "1.14.4-0.4.0"
+version = "1.14.4-0.4.1"
 group = "network.pxl8.colouredchat" 
 archivesBaseName = "colouredchat"
 
@@ -75,7 +75,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.39'
+    minecraft 'net.minecraftforge:forge:1.14.4-28.1.40'
 
     //compileOnly "discordchat:DiscordChat:1.12.2:2.3.0"
 }

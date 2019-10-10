@@ -53,7 +53,7 @@ public class Configuration {
         COMMON_BUILDER.pop();
     }
     private static void setupColourConfig() {
-        COMMON_BUILDER.comment("Allowed colours for random and custom assignment").push("colours");
+        COMMON_BUILDER.comment("Allowed colours for random and custom assignment", "! - Requires Restart").push("colours");
         DARK_GREEN      = COMMON_BUILDER.define("DARK_GREEN", true);
         DARK_AQUA       = COMMON_BUILDER.define("DARK_AQUA", true);
         DARK_RED        = COMMON_BUILDER.define("DARK_RED", true);

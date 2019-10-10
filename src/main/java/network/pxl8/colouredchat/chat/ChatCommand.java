@@ -11,6 +11,7 @@ public class ChatCommand{
                     .then(CommandSetColour.register())
                     .then(CommandClearColour.register())
                     .then(CommandRandomColour.register())
+                    .then(CommandListColour.register())
         );
     }
 }
