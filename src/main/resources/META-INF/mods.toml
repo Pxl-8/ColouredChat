@@ -40,10 +40,3 @@ This mod simply assigns a random colour to a users name when they join the serve
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
-# Here's another dependency
-[[dependencies.discordchat]]
-    modId="discordchat"
-    mandatory=false
-    versionRange="[1.14.4]"
-    ordering="NONE"
-    side="BOTH"

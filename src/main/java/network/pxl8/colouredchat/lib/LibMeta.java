@@ -1,6 +1,5 @@
 package network.pxl8.colouredchat.lib;
 
-import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
