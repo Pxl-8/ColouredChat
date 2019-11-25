@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = "1.14.4-1.4.1"
+version = "1.14.4-1.4.2"
 group = "network.pxl8.colouredchat" 
 archivesBaseName = "colouredchat"
 
@@ -75,7 +75,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.40'
+    minecraft 'net.minecraftforge:forge:1.14.4-28.1.94'
 
     //compileOnly "discordchat:DiscordChat:1.12.2:2.3.0"
 }
@@ -88,7 +88,7 @@ jar {
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"pxl8",
+            "Implementation-Vendor" : "pxl8",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

@@ -32,6 +32,7 @@ public class Configuration {
     public static ForgeConfigSpec.BooleanValue ALLOW_RANDOM;
 
     public static ForgeConfigSpec.BooleanValue USE_QUASI_RANDOM_ASSIGNMENT;
+    public static ForgeConfigSpec.BooleanValue USE_CUSTOM_TEAM_ASSIGNMENT;
 
     static {
         COMMON_BUILDER.push("chat_config");
@@ -78,6 +79,8 @@ public class Configuration {
     private static void setupExperimental() {
         USE_QUASI_RANDOM_ASSIGNMENT = COMMON_BUILDER.comment("Enable experimental quasi-random colour assignment", "This experimental mode will evenly distribute colours to players on login, reducing duplicate colours")
                 .define("USE_QUASI_RANDOM_ASSIGNMENT", true);
+        USE_CUSTOM_TEAM_ASSIGNMENT = COMMON_BUILDER.comment("Enable assigning players to a team with their colour", "This will allow other players to see your name colour in the player list and in the floating name above your player")
+                .define("USE_CUSTOM_TEAM_ASSIGNMENT", false);
         COMMON_BUILDER.pop();
     }
 

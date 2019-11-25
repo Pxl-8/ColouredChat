@@ -20,7 +20,10 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/colouredchat"
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="colouredchat.png"
 # A text field displayed in the mod UI
-credits="The pxl8 team, for being mostly cool."
+credits='''
+The pxl8 community, for being mostly cool
+Hatsune Miku for making minecraft
+'''
 # A text field displayed in the mod UI
 authors="uberifix"
 # The description text for the mod (multi line!)

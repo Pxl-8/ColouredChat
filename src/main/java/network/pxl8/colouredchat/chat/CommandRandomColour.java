@@ -1,8 +1,11 @@
 package network.pxl8.colouredchat.chat;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
+import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import network.pxl8.colouredchat.ColouredChat;
@@ -24,6 +27,20 @@ public class CommandRandomColour {
             ColouredChat.getCap(source.getEntity()).ifPresent(colourData -> {
                 if (colourData.getUsePlayerColour()) colourData.setUsePlayerColour(false);
                 colourData.setRandomColour(LibColour.randomFormattedColour());
+
+                if (Configuration.USE_CUSTOM_TEAM_ASSIGNMENT.get()) {
+                    Scoreboard sb = source.getWorld().getScoreboard();
+                    String playerName = source.getName();
+                    String shortName = playerName.substring(0, Math.min(playerName.length(), 8));
+
+                    ImmutableList<ScorePlayerTeam> teams = ImmutableList.copyOf(sb.getTeams());
+                    teams.forEach((team -> {if (team.getName().equals(shortName + "_colchat")) sb.removeTeam(team);}));
+
+                    ScorePlayerTeam playerTeam = sb.createTeam(shortName + "_colchat");
+                    playerTeam.setColor(colourData.getRandomColour());
+                    sb.addPlayerToTeam(playerName, playerTeam);
+                }
+
                 source.sendFeedback(new StringTextComponent("Randomized colour to ")
                         .appendSibling(new StringTextComponent(colourData.getRandomColour().getFriendlyName().toUpperCase()).applyTextStyle(colourData.getRandomColour())), true);
             });
