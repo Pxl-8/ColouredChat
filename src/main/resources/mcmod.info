@@ -2,14 +2,14 @@
 {
   "modid": "colouredchat",
   "name": "ColouredChat",
-  "description": "Simply adds random name colours to chat",
+  "description": "Chat on vanilla servers can get hard to read with many people chatting at the same time. \nThis mod simply assigns a random colour to a users name when they join the server.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://www.curseforge.com/minecraft/mc-mods/colouredchat",
   "updateUrl": "",
   "authorList": ["uberifix", "offbeatwitch"],
-  "credits": "The pxl8 team, for being mostly cool.",
-  "logoFile": "",
+  "credits": "The pxl8 community, for being mostly cool \nHatsune Miku for making minecraft",
+  "logoFile": "colouredchat.png",
   "screenshots": [],
   "dependencies": []
 }

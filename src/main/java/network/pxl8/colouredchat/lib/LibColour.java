@@ -4,12 +4,10 @@ import net.minecraft.util.text.TextFormatting;
 import network.pxl8.colouredchat.ColouredChat;
 import network.pxl8.colouredchat.config.Configuration;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class LibColour {
-    public static List getColours() {
+    public static List<TextFormatting> getColours() {
         List<TextFormatting> colours = new ArrayList<>();
 
         if (Configuration.colour_config.DARK_GREEN){colours.add(TextFormatting.DARK_GREEN);}
@@ -27,11 +25,6 @@ public class LibColour {
         return colours;
     }
 
-    public static String randomColour() {
-        Random rand = new Random();
-        return ColouredChat.COLOURS.get(rand.nextInt(ColouredChat.COLOURS.size())).toString();
-    }
-
     public static TextFormatting getColourFromName(String colour) {
         switch (colour) {
             case("DARK_GREEN"): return TextFormatting.DARK_GREEN;
@@ -47,5 +40,35 @@ public class LibColour {
             case("YELLOW"): return TextFormatting.YELLOW;
         }
         return null;
+    }
+
+    public static TextFormatting randomFormattedColour() {
+        Random rand = new Random();
+        return ColouredChat.COLOURS.get(rand.nextInt((ColouredChat.COLOURS.size())));
+    }
+
+    public static TextFormatting getRandomColourFromMap(HashMap<TextFormatting, Integer> map) {
+        List<TextFormatting> leastUsedColours = new ArrayList<>();
+
+        Iterator<Integer> mapValues = map.values().iterator();
+        int min = mapValues.next();
+        while (mapValues.hasNext()) { min = Math.min(min, mapValues.next()); }
+
+        for (TextFormatting colour : map.keySet()) {
+            if (map.get(colour).equals(min)) {
+                leastUsedColours.add(colour);
+            }
+        }
+        leastUsedColours.remove(ColouredChat.LAST_COLOUR);
+
+        Random rand = new Random();
+        TextFormatting colour = leastUsedColours.get(rand.nextInt(leastUsedColours.size()));
+        map.put(colour, map.get(colour) + 1);
+        ColouredChat.LAST_COLOUR = colour;
+        return colour;
+    }
+
+    public static void removeColourFromMap(HashMap<TextFormatting, Integer> map, TextFormatting colour) {
+        if (map.get(colour) > 0) { map.put(colour, map.get(colour) - 1); }
     }
 }

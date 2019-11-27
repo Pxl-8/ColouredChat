@@ -2,9 +2,11 @@ package network.pxl8.colouredchat.data;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldSavedData;
+import network.pxl8.colouredchat.api.capability.IColourData;
 import network.pxl8.colouredchat.lib.LibMeta;
 
 import java.util.HashMap;
@@ -12,81 +14,52 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class ColourData extends WorldSavedData{
-    private static final String IDENT = LibMeta.MOD_ID + "_playerdata";
+public class ColourData implements IColourData {
+    private TextFormatting randomSetColour;
+    private TextFormatting playerSetColour;
+    private TextFormatting quasiRandomSetColour;
+
+    private Boolean usePlayerColour;
 
     public ColourData() {
-        super(IDENT);
-    }
-    public ColourData(String s) {
-        super(s);
-    }
-
-    public static ColourData get(World world) {
-        MapStorage storage = world.getMapStorage();
-        ColourData instance = (ColourData) storage.getOrLoadData(ColourData.class, IDENT);
-
-        if (instance == null) {
-            instance = new ColourData();
-            storage.setData(IDENT, instance);
-        }
-        return instance;
-    }
-
-    private HashMap<UUID, String> defaultColours= new HashMap<UUID, String>();
-    public void addDefaultColour(EntityPlayer player, String colour){
-        defaultColours.put(player.getUniqueID(), colour);
-    }
-    public void removeDefaultColour(EntityPlayer player) {
-        defaultColours.remove(player.getUniqueID());
-    }
-    public String getDefaultColour(EntityPlayer player) {
-        return defaultColours.get(player.getUniqueID());
-    }
-
-    private HashMap<UUID, String> randomColours= new HashMap<UUID, String>();
-    public void addRandomColour(EntityPlayer player, String colour){
-        randomColours.put(player.getUniqueID(), colour);
-    }
-    public void removeRandomColour(EntityPlayer player) {
-        randomColours.remove(player.getUniqueID());
-    }
-    public String getRandomColour(EntityPlayer player) {
-        return randomColours.get(player.getUniqueID());
-
+        setRandomColour(TextFormatting.WHITE);
+        setPlayerColour(TextFormatting.WHITE);
+        setQuasiRandomColour(TextFormatting.WHITE);
+        setUsePlayerColour(false);
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        NBTTagCompound defaultColourData = new NBTTagCompound();
-        if (!defaultColours.isEmpty()) {
-            for (Map.Entry<UUID, String> entry : defaultColours.entrySet()) {
-                defaultColourData.setString(entry.getKey().toString(), entry.getValue());
-            }
-        }
-        NBTTagCompound randomColourData = new NBTTagCompound();
-        if (!randomColours.isEmpty()) {
-            for (Map.Entry<UUID, String> entry : randomColours.entrySet()) {
-                randomColourData.setString(entry.getKey().toString(), entry.getValue());
-            }
-        }
-
-        compound.setTag("default_colours", defaultColourData);
-        compound.setTag("random_colours", randomColourData);
-        return compound;
-    }
+    public TextFormatting getRandomColour() { return randomSetColour; }
+    @Override
+    public void setRandomColour(final TextFormatting colour) { this.randomSetColour = colour; }
+    @Override
+    public TextFormatting getPlayerColour() { return playerSetColour; }
+    @Override
+    public void setPlayerColour(final TextFormatting colour) { this.playerSetColour = colour; }
+    @Override
+    public TextFormatting getQuasiRandomColour() { return quasiRandomSetColour; }
+    @Override
+    public void setQuasiRandomColour(final TextFormatting colour) { this.quasiRandomSetColour = colour; }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbt) {
-        NBTTagCompound defaultColourData = nbt.getCompoundTag("default_colours");
-        for (String key : defaultColourData.getKeySet()) {
-            UUID uid = UUID.fromString(key);
-            defaultColours.put(uid, defaultColourData.getString(key));
-        }
-        NBTTagCompound randomColourData = nbt.getCompoundTag("random_colours");
-        for (String key : randomColourData.getKeySet()) {
-            UUID uid = UUID.fromString(key);
-            randomColours.put(uid, randomColourData.getString(key));
-        }
+    public Boolean getUsePlayerColour() { return usePlayerColour; }
+    @Override
+    public void setUsePlayerColour(Boolean bool) { this.usePlayerColour = bool; }
+
+    @Override
+    public NBTTagCompound serializeNBT() {
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setInteger("randomColour", randomSetColour.getColorIndex());
+        tag.setInteger("playerColour", playerSetColour.getColorIndex());
+        tag.setInteger("quasiRandomColour", quasiRandomSetColour.getColorIndex());
+        tag.setBoolean("usePlayerColour", usePlayerColour);
+        return tag;
+    }
+    @Override
+    public void deserializeNBT(NBTTagCompound nbt) {
+        setRandomColour(TextFormatting.fromColorIndex(nbt.getInteger("randomColour")));
+        setPlayerColour(TextFormatting.fromColorIndex(nbt.getInteger("playerColour")));
+        setQuasiRandomColour(TextFormatting.fromColorIndex(nbt.getInteger("quasiRandomColour")));
+        setUsePlayerColour(nbt.getBoolean("usePlayerColour"));
     }
 }
