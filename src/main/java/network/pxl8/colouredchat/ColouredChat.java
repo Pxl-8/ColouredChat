@@ -26,13 +26,9 @@ import java.util.List;
 
 @Mod("colouredchat")
 public class ColouredChat {
-    public static List<TextFormatting> COLOURS = LibColour.getColours();
-    public static TextFormatting LAST_COLOUR = TextFormatting.WHITE;
-    public static HashMap<TextFormatting, Integer> COLOUR_MAP;
-    static {
-        COLOUR_MAP = new HashMap<>();
-        ColouredChat.COLOURS.forEach(colour -> COLOUR_MAP.put(colour, 0));
-    }
+    public static List<TextFormatting> COLOURS;
+    public static TextFormatting LAST_COLOUR;
+    public static HashMap<TextFormatting, Integer> COLOUR_MAP = new HashMap<>();
 
     public static LazyOptional<IColourData> getCap(Entity player) {
         return player.getCapability(ColourCapability.COLOUR_DATA_CAPABILITY);
@@ -53,6 +49,10 @@ public class ColouredChat {
 
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
+        COLOURS = LibColour.getColours();
+        ColouredChat.COLOURS.forEach(colour -> COLOUR_MAP.put(colour, 0));
+        LAST_COLOUR = TextFormatting.WHITE;
+
         new ChatCommand(event.getCommandDispatcher());
     }
 }

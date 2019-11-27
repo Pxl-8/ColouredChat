@@ -10,6 +10,7 @@ A simple mod that randomly generates a name colour when a player joins the serve
 Makes chat more readable when multiple players are typing
 
 ## Releases
+
 #### 1.12.2-0.1.0-beta release
 - Initial release, random coloured names (no configs yet)
 #### 1.12.2-0.2.0-beta release
@@ -20,6 +21,13 @@ Added configuration file and commands
 - Command to allow players to choose a default name colour
 #### 1.12.2-0.3.0-beta release
 - Added quick compatibility with discordchat https://minecraft.curseforge.com/projects/discordchat
+#### 1.12.2-1.4.0 release
+- Backport of 1.14 code base to 1.12
+- Added random and list commands
+- Added quasi random assignment
+
+---
+
 #### 1.14.4-0.4.0 release
 Major Rewrites for Forge 1.14
 - Now using capabilities over WorldSavedData 
@@ -33,6 +41,12 @@ Brand new quasi-random colour assignment system implemented
 - The system also attempts to maintain an equal distribution of all colours when repeated colours are needed
 - This system is independent of any randomly assigned or set colours (using the commands)
 - If you only want to use this system you can simply disable the random/set commands from the config
+#### 1.14.4-1.4.2 release
+- Added team assignment to experimental config
+- Automatically creates and adds players to a team set to their colour
+- Colours will be able to be seen in the name hovering above the player as well as in the player tab list
+
+---
 
 ## Todo:
 - ~~Command for letting players set their own colours~~

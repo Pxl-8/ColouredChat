@@ -34,7 +34,7 @@ public class ChatListener {
                 String shortName = playerName.substring(0, Math.min(playerName.length(), 8));
 
                 ImmutableList<ScorePlayerTeam> teams = ImmutableList.copyOf(sb.getTeams());
-                teams.forEach((team -> {if (team.getName().equals(shortName + "_colchat")) sb.removeTeam(team);}));
+                teams.forEach(team -> { if (team.getName().equals(shortName + "_colchat")) sb.removeTeam(team); });
 
                 if (colourData.getUsePlayerColour()) {
                     ScorePlayerTeam playerTeam = sb.createTeam(shortName + "_colchat");
@@ -45,7 +45,6 @@ public class ChatListener {
                     playerTeam.setColor(colourData.getRandomColour());
                     sb.addPlayerToTeam(playerName, playerTeam);
                 }
-
             }
         });
     }
