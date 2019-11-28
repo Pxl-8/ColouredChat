@@ -7,7 +7,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.command.ISuggestionProvider;
-import network.pxl8.colouredchat.ColouredChat;
+import network.pxl8.colouredchat.lib.LibColour;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class ColourArgument implements ArgumentType<String> {
     @Override
     public <S>CompletableFuture<Suggestions> listSuggestions(final CommandContext<S> context, final SuggestionsBuilder builder) {
         List<String> coloursFriendly = new ArrayList<>();
-        ColouredChat.COLOURS.stream().forEach(colour -> {
+        LibColour.getColours().forEach(colour -> {
             coloursFriendly.add((colour.getFriendlyName()).toUpperCase());
         });
 
