@@ -1,5 +1,9 @@
 package network.pxl8.colouredchat.lib;
 
+import com.google.common.collect.ImmutableList;
+import net.minecraft.entity.Entity;
+import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.text.TextFormatting;
 import network.pxl8.colouredchat.ColouredChat;
 import network.pxl8.colouredchat.config.Configuration;
@@ -7,6 +11,7 @@ import network.pxl8.colouredchat.config.Configuration;
 import java.util.*;
 
 public class LibColour {
+
     public static List<TextFormatting> getColours() {
         List<TextFormatting> colours = new ArrayList<>();
 
@@ -70,5 +75,22 @@ public class LibColour {
 
     public static void removeColourFromMap(HashMap<TextFormatting, Integer> map, TextFormatting colour) {
         if (map.get(colour) > 0) { map.put(colour, map.get(colour) - 1); }
+    }
+
+    public static void clearTeam(Scoreboard sb, Entity player) {
+        ColouredChat.getCap(player).ifPresent(colourData -> {
+            ImmutableList<ScorePlayerTeam> teams = ImmutableList.copyOf(sb.getTeams());
+            teams.forEach(team -> { if (team.getName().equals(colourData.getTeamID())) sb.removeTeam(team); });
+        });
+    }
+
+    public static String randAlphanumString(int length) {
+        String alphanum = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random rand = new Random();
+        StringBuilder str = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            str.append(alphanum.charAt(rand.nextInt(alphanum.length())));
+        }
+        return str.toString();
     }
 }

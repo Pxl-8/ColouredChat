@@ -1,6 +1,5 @@
 package network.pxl8.colouredchat.chat;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -33,12 +32,9 @@ public class CommandSetColour {
                 if (Configuration.USE_CUSTOM_TEAM_ASSIGNMENT.get()) {
                     Scoreboard sb = source.getWorld().getScoreboard();
                     String playerName = source.getName();
-                    String shortName = playerName.substring(0, Math.min(playerName.length(), 8));
+                    LibColour.clearTeam(sb, source.getEntity());
 
-                    ImmutableList<ScorePlayerTeam> teams = ImmutableList.copyOf(sb.getTeams());
-                    teams.forEach((team -> {if (team.getName().equals(shortName + "_colchat")) sb.removeTeam(team);}));
-
-                    ScorePlayerTeam playerTeam = sb.createTeam(shortName + "_colchat");
+                    ScorePlayerTeam playerTeam = sb.createTeam(colourData.getTeamID());
                     playerTeam.setColor(colourData.getPlayerColour());
                     sb.addPlayerToTeam(playerName, playerTeam);
                 }

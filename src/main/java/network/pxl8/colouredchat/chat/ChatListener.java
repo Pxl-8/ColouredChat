@@ -1,6 +1,5 @@
 package network.pxl8.colouredchat.chat;
 
-import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
@@ -32,31 +31,32 @@ public class ChatListener {
             if (Configuration.USE_CUSTOM_TEAM_ASSIGNMENT.get()) {
                 Scoreboard sb = event.getPlayer().getWorldScoreboard();
                 String playerName = event.getPlayer().getDisplayName().getString();
-                String shortName = playerName.substring(0, Math.min(playerName.length(), 8));
 
-                ImmutableList<ScorePlayerTeam> teams = ImmutableList.copyOf(sb.getTeams());
-                teams.forEach(team -> { if (team.getName().equals(shortName + "_colchat")) sb.removeTeam(team); });
+                if (colourData.getTeamID().isEmpty()) {
+                    String shortName = playerName.substring(0, Math.min(playerName.length(), 8));
+                    colourData.setTeamID(shortName + LibColour.randAlphanumString(8));
+                    //LibMeta.LOG.debug("Creating new teamID: " + colourData.getTeamID());
+                }
+
+                LibColour.clearTeam(sb, event.getPlayer());
 
                 if (colourData.getUsePlayerColour()) {
-                    ScorePlayerTeam playerTeam = sb.createTeam(shortName + "_colchat");
+                    ScorePlayerTeam playerTeam = sb.createTeam(colourData.getTeamID());
                     playerTeam.setColor(colourData.getPlayerColour());
                     sb.addPlayerToTeam(playerName, playerTeam);
                 } else {
-                    ScorePlayerTeam playerTeam = sb.createTeam(shortName + "_colchat");
+                    ScorePlayerTeam playerTeam = sb.createTeam(colourData.getTeamID());
                     playerTeam.setColor(colourData.getRandomColour());
                     sb.addPlayerToTeam(playerName, playerTeam);
                 }
+                //LibMeta.LOG.debug("teamID: " + colourData.getTeamID());
             }
         });
     }
     @SubscribeEvent
     public static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
         Scoreboard sb = event.getPlayer().getWorldScoreboard();
-        String playerName = event.getPlayer().getDisplayName().getString();
-        String shortName = playerName.substring(0, Math.min(playerName.length(), 8));
-
-        ImmutableList<ScorePlayerTeam> teams = ImmutableList.copyOf(sb.getTeams());
-        teams.forEach((team -> {if (team.getName().equals(shortName + "_colchat")) sb.removeTeam(team);}));
+        LibColour.clearTeam(sb, event.getPlayer());
 
         if (Configuration.USE_QUASI_RANDOM_ASSIGNMENT.get()) {
             ColouredChat.getCap(event.getPlayer()).ifPresent(colourData -> LibColour.removeColourFromMap(ColouredChat.COLOUR_MAP, colourData.getQuasiRandomColour()));

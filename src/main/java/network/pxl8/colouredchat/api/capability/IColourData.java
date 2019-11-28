@@ -11,6 +11,9 @@ public interface IColourData {
     TextFormatting getQuasiRandomColour();
     void setQuasiRandomColour(TextFormatting colourData);
 
+    String getTeamID();
+    void setTeamID(String teamID);
+
     Boolean getUsePlayerColour();
     void setUsePlayerColour(Boolean bool);
 
