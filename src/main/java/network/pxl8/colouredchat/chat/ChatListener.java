@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import network.pxl8.colouredchat.ColouredChat;
 import network.pxl8.colouredchat.config.Configuration;
 import network.pxl8.colouredchat.lib.LibColour;
+import network.pxl8.colouredchat.lib.LibMeta;
 
 import java.util.*;
 
@@ -66,22 +67,27 @@ public class ChatListener {
     public static void onServerMsg(ServerChatEvent event) {
         JsonObject textComponentJSON = TextComponent.Serializer.toJsonTree(event.getComponent()).getAsJsonObject();
         ITextComponent msgTextComponent = ITextComponent.Serializer.fromJson(textComponentJSON.get("with"));
-        Iterator<ITextComponent> textComponentSib = msgTextComponent.getSiblings().iterator();
 
-        ITextComponent newTextComponent = new StringTextComponent(Configuration.DELIMITER_LEFT.get());
-        ColouredChat.getCap(event.getPlayer()).ifPresent(colourData -> {
-            if (colourData.getUsePlayerColour()) {
-                newTextComponent.appendSibling(textComponentSib.next().setStyle(msgTextComponent.getStyle()).applyTextStyle(colourData.getPlayerColour()));
-            } else {
-                newTextComponent.appendSibling(textComponentSib.next().setStyle(msgTextComponent.getStyle()).applyTextStyle(colourData.getRandomColour()));
+        if (msgTextComponent != null) {
+            Iterator<ITextComponent> textComponentSib = msgTextComponent.getSiblings().iterator();
+
+            ITextComponent newTextComponent = new StringTextComponent(Configuration.DELIMITER_LEFT.get());
+            ColouredChat.getCap(event.getPlayer()).ifPresent(colourData -> {
+                if (colourData.getUsePlayerColour()) {
+                    newTextComponent.appendSibling(textComponentSib.next().setStyle(msgTextComponent.getStyle()).applyTextStyle(colourData.getPlayerColour()));
+                } else {
+                    newTextComponent.appendSibling(textComponentSib.next().setStyle(msgTextComponent.getStyle()).applyTextStyle(colourData.getRandomColour()));
+                }
+            });
+            newTextComponent.appendText(Configuration.DELIMITER_RIGHT.get());
+
+            while (textComponentSib.hasNext()) {
+                newTextComponent.appendSibling(textComponentSib.next());
             }
-        });
-        newTextComponent.appendText(Configuration.DELIMITER_RIGHT.get());
 
-        while (textComponentSib.hasNext()) {
-            newTextComponent.appendSibling(textComponentSib.next());
+            event.setComponent(newTextComponent);
+        } else {
+            LibMeta.LOG.warn("ColouredChat is unable to parse chat messages! Please check if another mod/plugin modifies chat.");
         }
-
-        event.setComponent(newTextComponent);
     }
 }
