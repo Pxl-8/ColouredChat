@@ -84,22 +84,27 @@ public class ChatListener {
 
         JsonObject textCompJSON = GSON.toJsonTree(event.getComponent()).getAsJsonObject();
         ITextComponent msgTextComp = GSON.fromJson(textCompJSON.get("with"), ITextComponent.class);
-        Iterator<ITextComponent> textCompSib = msgTextComp.getSiblings().iterator();
 
-        ITextComponent newTextComp = new TextComponentString(Configuration.chat_config.DELIMITER_LEFT);
-        if (ColouredChat.hasCap(event.getPlayer())) {
-            if (ColouredChat.getCap(event.getPlayer()).getUsePlayerColour()) {
-                newTextComp.appendSibling(textCompSib.next().setStyle(msgTextComp.getStyle().setColor(ColouredChat.getCap(event.getPlayer()).getPlayerColour())));
-            } else {
-                newTextComp.appendSibling(textCompSib.next().setStyle(msgTextComp.getStyle().setColor(ColouredChat.getCap(event.getPlayer()).getRandomColour())));
+        if (msgTextComp != null) {
+            Iterator<ITextComponent> textCompSib = msgTextComp.getSiblings().iterator();
+
+            ITextComponent newTextComp = new TextComponentString(Configuration.chat_config.DELIMITER_LEFT);
+            if (ColouredChat.hasCap(event.getPlayer())) {
+                if (ColouredChat.getCap(event.getPlayer()).getUsePlayerColour()) {
+                    newTextComp.appendSibling(textCompSib.next().setStyle(msgTextComp.getStyle().setColor(ColouredChat.getCap(event.getPlayer()).getPlayerColour())));
+                } else {
+                    newTextComp.appendSibling(textCompSib.next().setStyle(msgTextComp.getStyle().setColor(ColouredChat.getCap(event.getPlayer()).getRandomColour())));
+                }
             }
-        }
-        newTextComp.appendText(Configuration.chat_config.DELIMITER_RIGHT);
+            newTextComp.appendText(Configuration.chat_config.DELIMITER_RIGHT);
 
-        while (textCompSib.hasNext()) {
-            newTextComp.appendSibling(textCompSib.next());
-        }
+            while (textCompSib.hasNext()) {
+                newTextComp.appendSibling(textCompSib.next());
+            }
 
-        event.setComponent(newTextComp);
+            event.setComponent(newTextComp);
+        } else {
+            LibMeta.LOG.warn("ColouredChat is unable to parse chat messages! Please check if another mod/plugin modifies chat.");
+        }
     }
 }
