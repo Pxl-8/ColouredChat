@@ -17,7 +17,7 @@ public class ColourData implements IColourData {
         setRandomColour(TextFormatting.WHITE);
         setPlayerColour(TextFormatting.WHITE);
         setQuasiRandomColour(TextFormatting.WHITE);
-        setTeamID(null);
+        setTeamID("");
         setUsePlayerColour(false);
     }
 

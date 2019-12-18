@@ -13,11 +13,11 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = "1.14.4-1.4.4"
-group = "network.pxl8.colouredchat" 
+version = "1.15.1-1.4.4"
+group = "network.pxl8.colouredchat"
 archivesBaseName = "colouredchat"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
     mappings channel: 'snapshot', version: '20190719-1.14.3'
@@ -25,6 +25,8 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
+
+            //property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
             property 'forge.logging.console.level', 'debug'
 
@@ -37,7 +39,7 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            
+
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
             property 'forge.logging.console.level', 'debug'
@@ -51,7 +53,7 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-            
+
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
             property 'forge.logging.console.level', 'debug'
@@ -67,17 +69,8 @@ minecraft {
     }
 }
 
-repositories {
-    /*maven {
-        name = "CurseForge"
-        url = "https://minecraft.curseforge.com/api/maven/"
-    }*/
-}
-
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.96'
-
-    //compileOnly "discordchat:DiscordChat:1.12.2:2.3.0"
+    minecraft 'net.minecraftforge:forge:1.15.1-30.0.7'
 }
 
 jar {

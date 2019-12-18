@@ -80,7 +80,7 @@ public class Configuration {
         USE_QUASI_RANDOM_ASSIGNMENT = COMMON_BUILDER.comment("Enable experimental quasi-random colour assignment", "This experimental mode will evenly distribute colours to players on login, reducing duplicate colours")
                 .define("USE_QUASI_RANDOM_ASSIGNMENT", true);
         USE_CUSTOM_TEAM_ASSIGNMENT = COMMON_BUILDER.comment("Enable assigning players to a team with their colour", "This will allow other players to see your name colour in the player list and in the floating name above your player")
-                .define("USE_CUSTOM_TEAM_ASSIGNMENT", false);
+                .define("USE_CUSTOM_TEAM_ASSIGNMENT", true);
         COMMON_BUILDER.pop();
     }
 
