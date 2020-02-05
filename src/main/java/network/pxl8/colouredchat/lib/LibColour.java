@@ -43,8 +43,8 @@ public class LibColour {
             case("RED"): return TextFormatting.RED;
             case("LIGHT_PURPLE"): return TextFormatting.LIGHT_PURPLE;
             case("YELLOW"): return TextFormatting.YELLOW;
+            default: return null;
         }
-        return null;
     }
 
     public static TextFormatting randomFormattedColour() {
