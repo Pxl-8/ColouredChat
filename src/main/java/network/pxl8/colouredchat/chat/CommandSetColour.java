@@ -24,6 +24,9 @@ public class CommandSetColour {
         if (!Configuration.ALLOW_CUSTOM.get()) {
             source.sendErrorMessage(new StringTextComponent("Command is disabled by config").applyTextStyle(TextFormatting.RED));
             return 0;
+        } else if (colour == null) {
+            source.sendErrorMessage(new StringTextComponent("Invalid colour specified").applyTextStyle(TextFormatting.RED));
+            return 0;
         } else {
             ColouredChat.getCap(source.getEntity()).ifPresent(colourData -> {
                 if (!colourData.getUsePlayerColour()) colourData.setUsePlayerColour(true);
